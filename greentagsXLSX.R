@@ -1,20 +1,31 @@
+
+setwd("U:/Rumpke/GreenTags/PVA")
+
+library("xlsx")
+library("plyr")
+library("dplyr")
+library("tidyr")
+
 #Read the contents of all file into a data.frame
 greentags  <-  read.xlsx2(file="greentags(October).xlsx", sheetName="Covington Query" ,as.data.frame=TRUE, header=TRUE)
 
+
+
 #Assign green tags "Yes" 
-greentags$GreenTag[greentags$LANDUSE_TE == "SINGLE FAMILY" |  greentags$LANDUSE_TE == "TWO FAMILY" 
-                   | greentags$LANDUSE_TE == "THREE FAMILY" |  greentags$LANDUSE_TE == "TOWNHOUSE - NO LAND" 
-                   | greentags$LANDUSE_TE == "CONDOMINIUM" | greentags$LANDUSE_TE == "MOBILE HOME - LAND" 
-                   | greentags$LANDUSE_TE == "MOBILE HOME - PARK"| greentags$LANDUSE_TE == "SEASONAL COTTAGE" 
-                   | greentags$LANDUSE_TE == "HOMEOWNERS ASSOCIATION PROPERTY" |  greentags$LANDUSE_TE == "RES WITH AN OUT BUILDING" 
-                   | greentags$LANDUSE_TE == "LANDOMINIUM" | greentags$LANDUSE_TE == "FARM LAND W/HOUSE" 
-                   | greentags$LANDUSE_TE == "HORSE FARM W/RESIDENCE" | greentags$LANDUSE_TE == "DAIRY FARM W/RESIDENCE"
-                   | greentags$LANDUSE_TE == "POULTRY FARM WITH RESIDENCE" | greentags$LANDUSE_TE == "FRUIT & NUT FARM W/RESIDENCE"
-                   | greentags$LANDUSE_TE == "NURSERY FARM W/RESIDENCE" | greentags$LANDUSE_TE == "VEGETABLE FARM W/RESIDENCE"
-                   | greentags$LANDUSE_TE == "TOBACCO FARM W/RESIDENCE" | greentags$LANDUSE_TE == "MIXED FARM W/RESIDENCE"
-                   | greentags$LANDUSE_TE == "FARM LAND W/MOBILE HOME" | greentags$LANDUSE_TE == "FOUR FAMILY"] <- "Yes"
+assign_yes <- function(a = greentags$GreenTag, b =greentags$LANDUSE_TE){
+a[b == "SINGLE FAMILY" |  b == "TWO FAMILY" | b == "THREE FAMILY" |  b == "TOWNHOUSE - NO LAND" | 
+  b == "CONDOMINIUM" | b == "MOBILE HOME - LAND" | b == "MOBILE HOME - PARK"| b == "SEASONAL COTTAGE" |
+  b == "HOMEOWNERS ASSOCIATION PROPERTY" |  b == "RES WITH AN OUT BUILDING" | b == "LANDOMINIUM" | b == "FARM LAND W/HOUSE" |
+  b == "HORSE FARM W/RESIDENCE" | b == "DAIRY FARM W/RESIDENCE"| b == "POULTRY FARM WITH RESIDENCE" | b == "FRUIT & NUT FARM W/RESIDENCE"| 
+  b == "NURSERY FARM W/RESIDENCE" | b == "VEGETABLE FARM W/RESIDENCE"| b == "TOBACCO FARM W/RESIDENCE" |
+  b == "MIXED FARM W/RESIDENCE"| b == "FARM LAND W/MOBILE HOME" | b == "FOUR FAMILY"] <- "Yes"
+
+return(a)
+}
+greentags$GreenTag <- assign_yes()
 
 greentags$GreenTag[greentags$LANDUSE_TE == "4-19 UNIT APARTMENTS"] <- "Yes(4-19 Unit)"
+
 
 #Add code descriptions in a column call "CodeDescription" 
 add_description <- function(a = greentags$CodeDescription, b =greentags$SALES_CODE){
@@ -47,6 +58,7 @@ a[b == "9999"] <- "NO CODE ASSIGNED"
 return(a)
 }
 greentags$CodeDescription <- add_description()
+
 
 #Return only Yes for Green Stickers
 greentagsYes <- subset(greentags, GreenTag == "Yes" | GreenTag == "Yes(4-19 Unit)")
