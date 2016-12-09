@@ -1,8 +1,6 @@
 #Read the contents of all file into a data.frame
 greentags  <-  read.xlsx2(file="greentags(October).xlsx", sheetName="Covington Query" ,as.data.frame=TRUE, header=TRUE)
 
-
-
 #Assign green tags "Yes" 
 greentags$GreenTag[greentags$LANDUSE_TE == "SINGLE FAMILY" |  greentags$LANDUSE_TE == "TWO FAMILY" 
                    | greentags$LANDUSE_TE == "THREE FAMILY" |  greentags$LANDUSE_TE == "TOWNHOUSE - NO LAND" 
@@ -17,8 +15,6 @@ greentags$GreenTag[greentags$LANDUSE_TE == "SINGLE FAMILY" |  greentags$LANDUSE_
                    | greentags$LANDUSE_TE == "FARM LAND W/MOBILE HOME" | greentags$LANDUSE_TE == "FOUR FAMILY"] <- "Yes"
 
 greentags$GreenTag[greentags$LANDUSE_TE == "4-19 UNIT APARTMENTS"] <- "Yes(4-19 Unit)"
-
-
 
 #Add code descriptions in a column call "CodeDescription" 
 add_description <- function(a = greentags$CodeDescription, b =greentags$SALES_CODE){
@@ -51,7 +47,6 @@ a[b == "9999"] <- "NO CODE ASSIGNED"
 return(a)
 }
 greentags$CodeDescription <- add_description()
-
 
 #Return only Yes for Green Stickers
 greentagsYes <- subset(greentags, GreenTag == "Yes" | GreenTag == "Yes(4-19 Unit)")
