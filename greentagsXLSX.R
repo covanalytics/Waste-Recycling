@@ -1,15 +1,6 @@
 
-setwd("U:/Rumpke/GreenTags/PVA")
-
-library("xlsx")
-library("plyr")
-library("dplyr")
-library("tidyr")
-
 #Read the contents of all file into a data.frame
 greentags  <-  read.xlsx2(file="greentags(October).xlsx", sheetName="Covington Query" ,as.data.frame=TRUE, header=TRUE)
-
-
 
 #Assign green tags "Yes" 
 assign_yes <- function(a = greentags$GreenTag, b =greentags$LANDUSE_TE){
@@ -25,7 +16,6 @@ return(a)
 greentags$GreenTag <- assign_yes()
 
 greentags$GreenTag[greentags$LANDUSE_TE == "4-19 UNIT APARTMENTS"] <- "Yes(4-19 Unit)"
-
 
 #Add code descriptions in a column call "CodeDescription" 
 add_description <- function(a = greentags$CodeDescription, b =greentags$SALES_CODE){
