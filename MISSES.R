@@ -1,10 +1,4 @@
 
-setwd("U:/Rumpke/Misses/misses_directory")
-
-library("xlsx", lib.loc="~/R/win-library/3.2")
-library("plyr", lib.loc="~/R/win-library/3.2")
-library("ggmap")
-
 #################################
 ##To Combine all Files if needed#
 #################################
@@ -54,8 +48,3 @@ save(woMisses, file="missesNovember16.RData")
     
 ###Leave in Address information for geocoding
 write.csv(woMisses, "C:/Users/tsink/Mapping/Geocoding/Misses/woMisses_2-26-2016a.csv") 
-
-woMisses <- woMisses[c(-8,-9,-10)]    
-
-#Create an EXCEl file of the final data
-write.xlsx(woMisses, "U:/Rumpke/Misses/CombinedFiles/woMisses_2-26-2016.xlsx")
