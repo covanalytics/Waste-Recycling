@@ -49,7 +49,6 @@ return(a)
 }
 greentags$CodeDescription <- add_description()
 
-
 #Return only Yes for Green Stickers
 greentagsYes <- subset(greentags, GreenTag == "Yes" | GreenTag == "Yes(4-19 Unit)")
 greentagsYes <- unique(greentagsYes)
