@@ -1,11 +1,3 @@
-
-setwd("U:/Rumpke/GreenTags/PVA")
-
-library("xlsx")
-library("plyr")
-library("dplyr")
-library("tidyr")
-
 #Read the contents of all file into a data.frame
 greentags  <-  read.xlsx2(file="greentags(October).xlsx", sheetName="Covington Query" ,as.data.frame=TRUE, header=TRUE)
 
@@ -66,5 +58,5 @@ greentagsYes <- subset(greentags, GreenTag == "Yes" | GreenTag == "Yes(4-19 Unit
 greentagsYes <- unique(greentagsYes)
 
 #Export file to EXCEL
-write.xlsx(greentagsYes, "U:/Rumpke/GreenTags/PVA/greentags(October).xlsx", row.names = FALSE)
+write.xlsx(greentagsYes, "greentags(October).xlsx", row.names = FALSE)
 
