@@ -80,6 +80,7 @@ receive_arcgis <- function(fromPath, dataframeName) {
   dataframeName<- data.frame(dataframeName, lon=shape$x, lat=shape$y)
 }
 woMissesUpdate <- receive_arcgis("C:/Users/tsink/Mapping/Geocoding/Misses/MissesUpdateOutput.shp", woMissesUpdate)
+woMissesUpdate <- woMissesUpdate[which(woMissesUpdate$Distance <= 0),]
 
 ### Columns to name and keep
 woMissesUpdate <- woMissesUpdate[, c(-1:-2, -14:-18, -20:-30)]
@@ -109,6 +110,8 @@ RepoPath <- "O:/AllUsers/CovStat/Data Portal/Repository/Data/Waste Management/WO
 TablPath <- "U:/CityWide Performance/CovStat/CovStat Projects/Operations/Rumpke/Tableau Files/WO_Misses.csv"
 
 sql_write(connection, dbName , dbGname, Rfile, dbPull, RepoPath, TablPath, append = TRUE)
+
+
 
 
 
