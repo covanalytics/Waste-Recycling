@@ -1,6 +1,15 @@
 
+setwd("U:CityWide Performance/CovStat/CovStat Projects/Operations/Rumpke/GreenTags/PVA")
+
+library("xlsx")
+library("plyr")
+library("dplyr")
+library("tidyr")
+
 #Read the contents of all file into a data.frame
-greentags  <-  read.xlsx2(file="greentags(October).xlsx", sheetName="Covington Query" ,as.data.frame=TRUE, header=TRUE)
+greentags  <-  read.xlsx2(file="greentags(January).xlsx", sheetName="Covington Query" ,as.data.frame=TRUE, header=TRUE)
+
+
 
 #Assign green tags "Yes" 
 assign_yes <- function(a = greentags$GreenTag, b =greentags$LANDUSE_TE){
@@ -16,6 +25,7 @@ return(a)
 greentags$GreenTag <- assign_yes()
 
 greentags$GreenTag[greentags$LANDUSE_TE == "4-19 UNIT APARTMENTS"] <- "Yes(4-19 Unit)"
+
 
 #Add code descriptions in a column call "CodeDescription" 
 add_description <- function(a = greentags$CodeDescription, b =greentags$SALES_CODE){
@@ -49,10 +59,11 @@ return(a)
 }
 greentags$CodeDescription <- add_description()
 
+
 #Return only Yes for Green Stickers
 greentagsYes <- subset(greentags, GreenTag == "Yes" | GreenTag == "Yes(4-19 Unit)")
 greentagsYes <- unique(greentagsYes)
 
 #Export file to EXCEL
-write.xlsx(greentagsYes, "greentags(October).xlsx", row.names = FALSE)
+write.xlsx(greentagsYes, "greentags(January_out).xlsx", row.names = FALSE)
 
