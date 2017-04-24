@@ -25,7 +25,7 @@ library("readxl")
 
 ##Load Update
 #Be sure to delete first sheet and last row containing summary; some odd behavior with date field if not.  File does not load.
-load_data <- function(df, FileName){
+load_data <- function(FileName){
   df <- read.xlsx(FileName, sheetIndex=2, startRow=2, colIndex = 1:12,  as.data.frame=TRUE, header=FALSE)
   #Remove the service type and duplicated customer number field
   df <- df[,c(-6:-7)]
@@ -37,7 +37,7 @@ load_data <- function(df, FileName){
   df <- subset(df, WO_Number != 8)
   return(df)
 }
-woMisses <- load_data(woMisses, "March2017.xlsx")
+woMisses <- load_data("March2017.xlsx")
 
 
 #### Geocode ####
