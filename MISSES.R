@@ -45,7 +45,7 @@ woMisses <- within(woMisses, {
   ZipCode <- "41011"
   FullAddress <- paste(Address, City, State, ZipCode, sep = " ")})
 
-# Geocode location of permits
+# Geocode location of missed work order
 covstat_geocode <- function(df, address){
   coordinates <- geocode(address)
   df <- cbind(df, coordinates)
